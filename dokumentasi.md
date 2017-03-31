@@ -166,3 +166,7 @@ Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma
             34	2	42	10	50	18	58	26
             33	1	41	9	49	17	57	25
     9. Langkah ke sembilan adalah memasukkan plaintext yang sudah diubah ke bentuk biner dan di XOR kan dengan hasil DES sebelumnya. 
+    
+## Referensi
+http://octarapribadi.blogspot.co.id/2012/10/contoh-enkripsi-dengan-algoritma-des.html
+https://www.slideshare.net/profileharis/data-encryption-standard-des-58671610
