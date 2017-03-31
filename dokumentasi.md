@@ -17,8 +17,8 @@ Deskripsi adalah satu kaidah upaya pengolahan data menjadi sesuatu yang dapat di
 ### DES
 Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma enkripsi sandi blok kunci simetrik dengan ukuran blok 64-bit dan ukuran kunci 56-bit.
 ## Langkah – Langkah
-    1.	Ubahlah plaintext dan key ke dalam bentuk biner
-    2.	Lakukan Initial Permutation (IP) pada bit plaintext menggunakan tabel IP berikut:
+    1.	Ubahlah conter dan key ke dalam bentuk biner
+    2.	Lakukan Initial Permutation (IP) pada bit counter menggunakan tabel IP berikut:
         Tabel Initial Permutation(IP)
 
             58	50	42	34	26	18	10	2
@@ -30,10 +30,10 @@ Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma
             61	53	45	37	29	21	13	5
             63	55	47	39	31	23	15	7
 
-        Urutan bit pada plaintext urutan ke 58 ditaruh diposisi 1,
-        Urutan bit pada plaintext urutan ke 50 ditaruh di posisi 2,
-        Urutan bit pada plaintext urutan ke 42 ditaruh di posisi 3, dst
-    3. Generate kunci yang akan digunakan untuk mengenkripsi plaintext dengan menggunakan tabel permutasi kompresi PC-1, pada langkah ini terjadi kompresi dengan membuang 1 bit masing-masing blok kunci dari 64 bit menjadi 56 bit.
+        Urutan bit pada counter urutan ke 58 ditaruh diposisi 1,
+        Urutan bit pada counter urutan ke 50 ditaruh di posisi 2,
+        Urutan bit pada counter urutan ke 42 ditaruh di posisi 3, dst
+    3. Generate kunci yang akan digunakan untuk mengenkripsi counter dengan menggunakan tabel permutasi kompresi PC-1, pada langkah ini terjadi kompresi dengan membuang 1 bit masing-masing blok kunci dari 64 bit menjadi 56 bit.
         Tabel PC-1
 
             57	49	41	33	25	17	9
@@ -153,7 +153,7 @@ Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma
 
     Hasil P(Bi) kemudian di XOR kan dengan Li-1 untuk mendapatkan nilai Ri.
     Sedangkan nilai Li sendiri diperoleh dari Nilai Ri-1 untuk nilai 1 <= i <= 16.
-    8. Langkah terakhir adalah menggabungkan R16 dengan L16 kemudian dipermutasikan untuk terakhir kali dengan tabel Invers Initial Permutasi(IP-1).
+    8. Langkah selanjutnya adalah menggabungkan R16 dengan L16 kemudian dipermutasikan untuk terakhir kali dengan tabel Invers Initial Permutasi(IP-1).
 
     Tabel IP-1
 
@@ -165,3 +165,4 @@ Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma
             35	3	43	11	51	19	59	27
             34	2	42	10	50	18	58	26
             33	1	41	9	49	17	57	25
+    9. Langkah ke sembilan adalah memasukkan plaintext yang sudah diubah ke bentuk biner dan di XOR kan dengan hasil DES sebelumnya. 
