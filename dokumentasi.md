@@ -1,4 +1,4 @@
-# Tugas 1 – Data Encryption System with Counter
+# Tugas 1 – Data Encryption Standard's Counter with Socket 
 ## KIJ Kelompok F10
 * •	Deni Ismail (5114100022)
 * •	Ahmad Ismail H W (5114100032)
@@ -166,7 +166,17 @@ Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma
             34	2	42	10	50	18	58	26
             33	1	41	9	49	17	57	25
     9. Langkah ke sembilan adalah memasukkan plaintext yang sudah diubah ke bentuk biner dan di XOR kan dengan hasil DES sebelumnya. 
+
+    10. Tahap Pembuatan Socket (Client dan server)
+
+        Server
+            Deklarasi Port dan pembuatan socket file. Kemudian listen message dari client, setelah menerima message dari client kemudian di message enkripsi dengan metode DES dan CTR.
+        Client
+            Membuat socket file dan deklarasi port. kemudian tetapkan ip sesuai ip server (apakah itu localhost, atau di PC yang berbeda). lalu mengirim permintaan server untuk menyambungkan. apabila tersambung, maka client bisa mengirim pesan kepada server. pesan yang dikirim nantinya akan di enkripsi dan di dekripsi oleh server.
+
     
 ## Referensi
 http://octarapribadi.blogspot.co.id/2012/10/contoh-enkripsi-dengan-algoritma-des.html
 https://www.slideshare.net/profileharis/data-encryption-standard-des-58671610
+http://www.geeksforgeeks.org/socket-programming-cc/
+http://stackoverflow.com/questions/22288871/function-returning-address-of-local-variable-error-in-c
