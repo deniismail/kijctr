@@ -38,11 +38,18 @@ int main(int argc, char const *argv[])
             printf("\nConnection Failed \n");
             return -1;
         }
+
+    
+    
     while(1)
     {
+        char y_user[100];
+        printf("Masukkan Plaintext : ");
         scanf("%s", hello);
         send(sock , hello , strlen(hello) , 0 );
-        printf("Hello message sent\n");
+        printf("Masukkan Y : ");
+        scanf("%s", y_user);
+        send(sock , y_user, strlen(y_user) , 0 );
         valread = read( sock , buffer, 1024);
         printf("%s\n",buffer );
     }

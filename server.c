@@ -7,6 +7,32 @@
 #define PORT 8080
 #include <math.h>
 
+int hitung_key(int q, int a, int xy) // q a x || q a y
+{
+    // q pangkat xy mod a
+    int hasil=1;
+    int i;
+    for(i=0; i<xy; i++){
+        hasil*=q;
+        hasil = hasil % a;
+    }
+    //tes = tes%n;
+    return hasil;
+}
+
+int kunci_simetri(int kunci, int a1, int c) //key_X,a,x || key_Y,a,y
+{
+    int hasil2=1;
+    int i;
+    for(i=0; i<c; i++){
+        hasil2*=kunci;
+        hasil2 = hasil2 % a1;
+    }
+    // kunci pangkat c mod a1
+    return hasil2;
+}
+
+
 int *convert_binary(char plaintext)
 {
     int i;
@@ -36,6 +62,33 @@ int *decimalToBinary(long n)
     return remainder;
 }
 
+int toString(char a[])
+{
+	int c, sign, offset, n;
+	if(a[0]=='-'){
+	sign = -1;
+	}
+
+	if(sign==-1){
+	offset=1;
+	}
+	
+	else 
+	offset=0;
+	n=0;
+
+	for(c=offset;a[c]!='\0';c++)
+	{
+		n=n*10+a[c]-'0';
+	}
+	if(sign==-1){
+	n=-n;
+	}
+	return n;
+}
+
+
+
 int main(int argc, char const *argv[])
 {
     int server_fd, new_socket, valread;
@@ -43,7 +96,7 @@ int main(int argc, char const *argv[])
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
-    char *hello = "Hello from server";
+    char *hello = "berhasil dong!";
     
         // Creating socket file descriptor
         if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
@@ -84,6 +137,21 @@ int main(int argc, char const *argv[])
     while(1)
     {  
         valread = read( new_socket , buffer, 1024);
+        char baca[100];
+        int qDH = 3, aDH = 353;
+        int x_server;
+        valread = read( new_socket , baca, 1024);
+        int y_client = toString(baca);
+        printf ("Masukkan nilai X : ");
+        scanf("%d",&x_server);
+
+        int key_X = hitung_key(qDH, aDH, x_server);
+        int key_Y = hitung_key(qDH, aDH, y_client);
+        printf("nilai X dan Y setelah dihitung %d %d ",key_X , key_Y);
+        int dh_server = kunci_simetri(key_X, aDH, x_server);
+        int dh_client = kunci_simetri(key_Y, aDH, y_client);
+        printf("nilai K alice dan K bob setelah dihitung : %d %d",dh_server,dh_client);
+
 
         int ip[64] = {58, 50, 42, 34, 26, 18, 10, 2, 
         60, 52, 44, 36, 28, 20, 12, 4,
@@ -191,32 +259,35 @@ int main(int argc, char const *argv[])
                 33, 1,  41, 9,  49, 17, 57, 25
         };
         
-        char plaintext[7];
+        char plaintext[] = "00000001";
         char key[7];
-        int i, j, hasil[63], initial[63], hasil_PC1[55], *perm, *keys, a, b, count, L[31], R[31], C[27], D[27], hasilkey[63];
+        int i, j, hasil[63], initial[63], hasil_PC1[55], *perm, *keys, a, b, count, L[31], R[31], C[27], D[27], *hasilkey;
+        int q = 3, mod = 353;
         //char counter[7]={0, 0, 0, 0, 0, 0, 0, 0};
         //int *cleftshift, *dleftshift;
         //for (i=1; i<=8; i++)
-        printf("Masukkan : "); 
-        scanf ("%s", plaintext);
-        printf("Masukkan Key : ");
-        scanf ("%s", key);
+        //printf("Masukkan : "); 
+        //scanf ("%s", plaintext);
+        //printf("Masukkan Key : ");
+        //scanf ("%s", key);
         
         //LANGKAH 1
         for(i=0; i<8; i++)
         {
             perm = convert_binary(plaintext[i]);
-            keys = convert_binary(key[i]);
+            //keys = decimalToBinary(dh_server);
             a=i*8;
             b=(i+1)*8;
             count = 7;
             for (int j = a; j<b; j++)
             {
                 hasil[j] =  *(perm+count);
-                hasilkey[j] = *(keys+count);
+                //hasilkey[j] = *(keys+count);
                 count--;
             }   
         }
+
+        hasilkey = decimalToBinary(dh_server);
         //LANGKAH 2
         for(i=0; i<64; i++)
         {
@@ -290,11 +361,11 @@ int main(int argc, char const *argv[])
                 {
                     C[i] = temp1;
                 }
-                for(i=0; i<panjang; i++)
-                {
-                    printf("%d", C[i]);
-                }
-                printf("\n");
+                //for(i=0; i<panjang; i++)
+                //{
+                //   printf("%d", C[i]);
+                //}
+                //printf("\n");
                 temp1 = D[0];
                 //temp2 = C[1];
                 for(i=0; i<S; i++)
@@ -306,11 +377,11 @@ int main(int argc, char const *argv[])
                 {
                     D[i] = temp1;
                 }
-                for(i=0; i<panjang; i++)
-                {
-                    printf("%d", D[i]);
-                }
-                printf("\n");
+                //for(i=0; i<panjang; i++)
+                //{
+                //    printf("%d", D[i]);
+                //}
+                //printf("\n");
             }
             else{
                 temp1 = C[0];
@@ -322,11 +393,11 @@ int main(int argc, char const *argv[])
                 C[S] = temp2;
                 C[panjang] = temp1;
             
-                for(i=0; i<panjang; i++)
-                {
-                    printf("%d", C[i]);
-                }
-                printf("\n");
+                //for(i=0; i<panjang; i++)
+                //{
+                //    printf("%d", C[i]);
+                //}
+                //printf("\n");
                 
                 temp1 = D[0];
                 temp2 = D[1];
@@ -337,11 +408,11 @@ int main(int argc, char const *argv[])
                 D[S] = temp2;
                 D[panjang] = temp1;
             
-                for(i=0; i<panjang; i++)
-                {
-                    printf("%d", D[i]);
-                }
-                printf("\n");
+                //for(i=0; i<panjang; i++)
+                //{
+                //    printf("%d", D[i]);
+                //}
+                //printf("\n");
             }
             
             k=28;
@@ -351,40 +422,40 @@ int main(int argc, char const *argv[])
                 gabung[k] = D[j];
                 k++;
             }
-            for(j=0; j<56; j++)
-            {
-                printf("%d", gabung[j]);
-            }
-            printf("\n");
+            //for(j=0; j<56; j++)
+            //{
+            //    printf("%d", gabung[j]);
+            //}
+            //printf("\n");
             for (j=0; j<48; j++)
             {
                 hasil_PC2[j] = gabung[PC2[j]-1];
             }
-            for(j=0; j<48; j++)
-            {
-                printf("%d", hasil_PC2[j]);
-            }
-            printf("\n");   
+            //for(j=0; j<48; j++)
+            //{
+            //   printf("%d", hasil_PC2[j]);
+            //}
+            //printf("\n");   
             //langkah 5
             for (j=0 ; j<48; j++)
             {
                 hasil_e[j]= R[E[j]-1];
             }
-            for (j=0 ; j<48; j++)
-            {
-                printf("%d", hasil_e[j]);
-            }
-            printf("\n");
+            //for (j=0 ; j<48; j++)
+            //{
+            //    printf("%d", hasil_e[j]);
+            //}
+            //printf("\n");
             for (j=0; j<48; j++)
             {
                 if (hasil_PC2[j]== hasil_e[j]) hasil_xor[j]=0;
                 else hasil_xor[j] = 1;
             }
-            for (j=0; j<48; j++)
-            {
-                printf("%d", hasil_xor[j]);
-            }
-            printf("\n");
+            //for (j=0; j<48; j++)
+            //{
+            //    printf("%d", hasil_xor[j]);
+            //}
+            //printf("\n");
             int x =0, j=0;
             int y= 0, baris = 0, kolom = 0;
             int cocok =0;
@@ -486,7 +557,7 @@ int main(int argc, char const *argv[])
 
         printf("%s\n",buffer );
         send(new_socket , hello , strlen(hello) , 0 );
-        printf("Hello message sent\n");
+        printf("asikk!!\n");
     }
 
     return 0;
