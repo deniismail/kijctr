@@ -16,7 +16,7 @@ int hitung_key(int q, int a, int xy) // q a x || q a y
         hasil*=q;
         hasil = hasil % a;
     }
-    //tes = tes%n;
+    
     return hasil;
 }
 
@@ -62,29 +62,14 @@ int *decimalToBinary(long n)
     return remainder;
 }
 
-int toString(char a[])
+int toString(char num[])
 {
-	int c, sign, offset, n;
-	if(a[0]=='-'){
-	sign = -1;
+	int dec = 0, i, j, len;
+	len = strlen(num);
+	for(i=0; i<len; i++){
+		dec = dec * 10 + ( num[i] - '0' );
 	}
-
-	if(sign==-1){
-	offset=1;
-	}
-	
-	else 
-	offset=0;
-	n=0;
-
-	for(c=offset;a[c]!='\0';c++)
-	{
-		n=n*10+a[c]-'0';
-	}
-	if(sign==-1){
-	n=-n;
-	}
-	return n;
+	return dec;
 }
 
 
@@ -136,21 +121,26 @@ int main(int argc, char const *argv[])
         }
     while(1)
     {  
-        valread = read( new_socket , buffer, 1024);
+        valread = read(new_socket, buffer, 1024);
         char baca[100];
-        int qDH = 3, aDH = 353;
+        int qDH = 5, aDH = 97;
         int x_server;
-        valread = read( new_socket , baca, 1024);
-        int y_client = toString(baca);
+        valread = read(new_socket, baca, 100);
+        //printf("%s", baca);
+        //int y_client = toString(baca);
+        int y_client = atoi (baca);
+        //printf("%d", y_client);
         printf ("Masukkan nilai X : ");
         scanf("%d",&x_server);
 
         int key_X = hitung_key(qDH, aDH, x_server);
         int key_Y = hitung_key(qDH, aDH, y_client);
         printf("nilai X dan Y setelah dihitung %d %d ",key_X , key_Y);
-        int dh_server = kunci_simetri(key_X, aDH, x_server);
-        int dh_client = kunci_simetri(key_Y, aDH, y_client);
-        printf("nilai K alice dan K bob setelah dihitung : %d %d",dh_server,dh_client);
+        printf("\n");
+        int dh_server = kunci_simetri(key_Y, aDH, x_server);
+        int dh_client = kunci_simetri(key_X, aDH, y_client);
+        printf("nilai K server dan K client setelah dihitung : %d %d",dh_server,dh_client);
+        printf("\n");
 
 
         int ip[64] = {58, 50, 42, 34, 26, 18, 10, 2, 
@@ -557,7 +547,7 @@ int main(int argc, char const *argv[])
 
         printf("%s\n",buffer );
         send(new_socket , hello , strlen(hello) , 0 );
-        printf("asikk!!\n");
+        //printf("asikk!!\n");
     }
 
     return 0;

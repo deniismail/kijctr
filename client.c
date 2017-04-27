@@ -49,7 +49,7 @@ int main(int argc, char const *argv[])
         send(sock , hello , strlen(hello) , 0 );
         printf("Masukkan Y : ");
         scanf("%s", y_user);
-        send(sock , y_user, strlen(y_user) , 0 );
+        send(sock ,y_user, strlen(y_user) , 0 );
         valread = read( sock , buffer, 1024);
         printf("%s\n",buffer );
     }
