@@ -81,7 +81,7 @@ int main(int argc, char const *argv[])
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
-    char *hello = "berhasil dong!";
+    //char *hello = "berhasil dong!";
     
         // Creating socket file descriptor
         if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
@@ -120,7 +120,7 @@ int main(int argc, char const *argv[])
             exit(EXIT_FAILURE);
         }
     while(1)
-    {  
+   	{  
         valread = read(new_socket, buffer, 1024);
         char baca[100];
         int qDH = 5, aDH = 97;
@@ -135,7 +135,7 @@ int main(int argc, char const *argv[])
 
         int key_X = hitung_key(qDH, aDH, x_server);
         int key_Y = hitung_key(qDH, aDH, y_client);
-        printf("nilai X dan Y setelah dihitung %d %d ",key_X , key_Y);
+        printf("nilai X dari server dan Y dari server setelah dihitung %d %d ",key_X , key_Y);
         printf("\n");
         int dh_server = kunci_simetri(key_Y, aDH, x_server);
         int dh_client = kunci_simetri(key_X, aDH, y_client);
@@ -546,7 +546,14 @@ int main(int argc, char const *argv[])
         printf("\n");
 
         printf("%s\n",buffer );
-        send(new_socket , hello , strlen(hello) , 0 );
+        //send(new_socket , hello , strlen(hello) , 0 );
+        
+        char dapat[1024];
+    	char balas[100];
+        printf("Masukkan plaintext : ");
+        scanf("%s", balas);
+        send(new_socket, balas, strlen(balas), 0);
+        
         //printf("asikk!!\n");
     }
 
