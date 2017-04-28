@@ -17,6 +17,7 @@ Deskripsi adalah satu kaidah upaya pengolahan data menjadi sesuatu yang dapat di
 ### DES
 Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma enkripsi sandi blok kunci simetrik dengan ukuran blok 64-bit dan ukuran kunci 56-bit.
 ## Langkah – Langkah
+# tugas 1
     1.	Ubahlah conter dan key ke dalam bentuk biner
     2.	Lakukan Initial Permutation (IP) pada bit counter menggunakan tabel IP berikut:
         Tabel Initial Permutation(IP)
@@ -166,17 +167,25 @@ Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma
             34	2	42	10	50	18	58	26
             33	1	41	9	49	17	57	25
     9. Langkah ke sembilan adalah memasukkan plaintext yang sudah diubah ke bentuk biner dan di XOR kan dengan hasil DES sebelumnya. 
-
+----------------------------------------------------------------------------------------------------------------------
+# tugas 2
     10. Tahap Pembuatan Socket (Client dan server)
 
         Server
             Deklarasi Port dan pembuatan socket file. Kemudian listen message dari client, setelah menerima message dari client kemudian di message enkripsi dengan metode DES dan CTR.
         Client
             Membuat socket file dan deklarasi port. kemudian tetapkan ip sesuai ip server (apakah itu localhost, atau di PC yang berbeda). lalu mengirim permintaan server untuk menyambungkan. apabila tersambung, maka client bisa mengirim pesan kepada server. pesan yang dikirim nantinya akan di enkripsi dan di dekripsi oleh server.
-
+----------------------------------------------------------------------------------------------------------------------
+# tugas 3
+    Tahap kriptogafi Diffie Hellman
+    1. Misal ada 2 orang berkomunikasi yaitu A dan B. A dan B menyepakati bilangan prima besar yaitu nilai n dan g dengan g < n. Kedua bilangan tersebut bukan bilangan yang rahasia/
+    2. A memilih bilangan bulat acak X dan mengrimi hasil perhitungan X = g^x mod n kepada B dan B mengirimkan bilangan bulat Y dan mengirim hasil penghitungan Y = g^y mod n kepada A
+    3. A menghitung K= Y^x mod n, B menghitung K'=X^y mod n. jika penghitungan benar maka K=K'.
+    
     
 ## Referensi
 http://octarapribadi.blogspot.co.id/2012/10/contoh-enkripsi-dengan-algoritma-des.html
 https://www.slideshare.net/profileharis/data-encryption-standard-des-58671610
 http://www.geeksforgeeks.org/socket-programming-cc/
 http://stackoverflow.com/questions/22288871/function-returning-address-of-local-variable-error-in-c
+https://www.slideshare.net/KuliahKita/kriptografi-algoritma-diffie-hellman
