@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
         serv_addr.sin_port = htons(PORT);
           
         // Convert IPv4 and IPv6 addresses from text to binary form
-        if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0) 
+        if(inet_pton(AF_INET, "10.151.43.233", &serv_addr.sin_addr)<=0) 
         {
             printf("\nInvalid address/ Address not supported \n");
             return -1;
@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
     while(1)
     {
         char y_user[100];
-        printf("Masukkan Plaintext : ");
+        printf("Masukkan text : ");
         scanf("%s", hello);
         send(sock , hello , strlen(hello) , 0 );
         printf("Masukkan Y : ");
@@ -52,6 +52,15 @@ int main(int argc, char const *argv[])
         send(sock ,y_user, strlen(y_user) , 0 );
         valread = read( sock , buffer, 1024);
         printf("%s\n",buffer );
+    }
+    while(1)
+    {
+	char dapet[1024];
+	valread = read(sock, dapet, 1024);
+	printf("%s\n" ,dapet);
+	char bales[100];
+	scanf("%s", bales);
+	send(sock, bales, strlen(bales), 0);
     }
     return 0;
 }
