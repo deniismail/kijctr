@@ -1,8 +1,6 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from select import select
 import sys
-import os
-import binascii
 import random
 
 def gcd(a, b):
@@ -14,7 +12,7 @@ def dekrip (priv_key, n, chipertext):
     plaintext = [chr((char ** priv_key) % n) for char in chipertext]
     return ''.join(plaintext)
 
-server_address = ('', 5001)
+server_address = ('', 5078)
 server_socket = socket(AF_INET, SOCK_STREAM)
 server_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 server_socket.bind(server_address)
@@ -31,28 +29,27 @@ try:
                 CONNECTION.append(client_socket)
 
             else:
-                # langkah 1
+    # 1
                 p = 17
                 q = 23
 
-                # langkah 2
+     # 2
                 n = p * q
 
-                # langkah3
+    # 3
                 phi = (p - 1) * (q - 1)
                 print n
                 print phi
 
-                # langkah 4
+     # 4
                 e = random.randrange(1, phi)
-
                 cek = gcd(e, phi)
                 while cek != 1:
                     e = random.randrange(1, phi)
                     cek = gcd(e, phi)
                 print e
 
-                # langkah 5
+      # 5
                 cek2 = e % phi
                 d = 1
                 while cek2 != 1:
@@ -60,7 +57,7 @@ try:
                     cek2 = (d * e) % phi
                 print d
 
-                # langkah 6
+     # 6
                 print "private key : ", d
                 print "public key : ", e
 
@@ -83,11 +80,10 @@ try:
                 if message:
                     sock.send('data sent\n')
                 else:
-                    print sock.getpeername(), '((this user disconnected))'
+                    print sock.getpeername(), '((disconnect))'
                     sock.close()
                     CONNECTION.remove(sock)
 
 except KeyboardInterrupt:
-    print 'You pressed ctrl+c'
     server_socket.close()
     sys.exit(0)
