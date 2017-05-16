@@ -182,10 +182,21 @@ Dalam bidang kriptografi, Data Encryption Standard (DES) adalah sebuah algoritma
     2. A memilih bilangan bulat acak X dan mengrimi hasil perhitungan X = g^x mod n kepada B dan B mengirimkan bilangan bulat Y dan mengirim hasil penghitungan Y = g^y mod n kepada A
     3. A menghitung K= Y^x mod n, B menghitung K'=X^y mod n. jika penghitungan benar maka K=K'.
     
-    
+# tugas 4
+    Langkah-langkah dalam mengenkripsi atau mengdekripsi RSA adalah sebagai berikut :
+    1. Pilih 2 buah bilangan prima p dan q.
+    2. Hitung nilai n = p * q , (usahakan agar setidaknya n > 255 agar dapat mewakili seluruh karakter  ASCII).
+    3. Hitung nilai m = (p-1) * (q-1).
+    4. Cari nilai e , dimana e merupakan relatif prima dari m.
+    5. Cari nilai d , yang memenuhi persamaan ed ≡ 1 mod m atau d = e-1 mod m.
+    6. Kunci public (e , n) dan kunci private (d , n).
+    7. Fungsi enkripsi → E (ta)=tae mod n ; dimana ta merupakan karakter ke-a dari message (pesan) yang akan dienkripsi.
+    8. Fungsi dekripsi → D (ca)=cad mod n ; dimana ca merupakan karakter ke-a dari ciphertext yang akan didekripsikan. 
+      
 ## Referensi
 http://octarapribadi.blogspot.co.id/2012/10/contoh-enkripsi-dengan-algoritma-des.html
 https://www.slideshare.net/profileharis/data-encryption-standard-des-58671610
 http://www.geeksforgeeks.org/socket-programming-cc/
 http://stackoverflow.com/questions/22288871/function-returning-address-of-local-variable-error-in-c
 https://www.slideshare.net/KuliahKita/kriptografi-algoritma-diffie-hellman
+http://octarapribadi.blogspot.co.id/2016/02/enkripsi-dan-dekripsi-menggunakan-rsa.html
